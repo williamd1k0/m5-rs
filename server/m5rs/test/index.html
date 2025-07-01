@@ -8,7 +8,7 @@
     <body>
         <img id="stream" />
         <script>
-            const ws = new WebSocket("ws://127.0.0.1:8000");
+            const ws = new WebSocket("ws://127.0.0.1:8765");
             const imgElement = document.getElementById("stream");
             ws.onmessage = (event) => {
                 const blob = new Blob([event.data], { type: "image/jpeg" });
@@ -17,7 +17,13 @@
             };
             ws.onopen = () => {
                 console.log("WebSocket connection established");
-                ws.send("75"); // Request frames with jpg quality 50
+                let configs = {
+                    width: 640,
+                    height: 480,
+                    quality: 100,
+                    fps: 30,
+                };
+                ws.send(JSON.stringify(configs));
             };
         </script>
     </body>
