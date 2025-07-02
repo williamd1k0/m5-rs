@@ -57,9 +57,14 @@ void setup() {
 
     ws_client.onMessage(onMessageCallback);
     ws_client.onEvent(onEventsCallback);
-    ws_client.connect(WS_HOST, WS_PORT, WS_PATH);
-    ws_client.send("{\"quality\": " + String(JPG_QUALITY) + ", \"fps\": " + String(STREAM_FPS) +
-                   ", \"width\": " + String(STREAM_WIDTH) + ", \"height\": " + String(STREAM_HEIGHT) + "}");
+    if (ws_client.connect(WS_HOST, WS_PORT, WS_PATH)) {
+        ws_client.send("{\"quality\": " + String(JPG_QUALITY) + ", \"fps\": " + String(STREAM_FPS) +
+                        ", \"width\": " + String(STREAM_WIDTH) + ", \"height\": " + String(STREAM_HEIGHT) + "}");
+    } else {
+        Serial.println("WebSocket connection failed");
+        canvas.printf("WS Connection Failed\nPress BtnA to restart");
+        canvas.pushSprite(0, 0);
+    }
 }
 
 void loop() {
