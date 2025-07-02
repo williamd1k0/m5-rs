@@ -24,6 +24,7 @@ void onEventsCallback(WebsocketsEvent event, String data) {
         Serial.println("Connnection Opened");
     } else if(event == WebsocketsEvent::ConnectionClosed) {
         Serial.println("Connnection Closed");
+        ESP.restart();
     } else if(event == WebsocketsEvent::GotPing) {
         Serial.println("Got a Ping!");
     } else if(event == WebsocketsEvent::GotPong) {

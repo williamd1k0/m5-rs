@@ -2,6 +2,7 @@ import os, time
 import asyncio
 import signal
 import json
+from collections import deque
 from websockets.asyncio.server import serve
 from .capture import capture_window, resize_image, image_to_jpeg_bytes
 
@@ -12,11 +13,22 @@ FRAME_WIDTH = 240
 FRAME_HEIGHT = 135
 window_id = int(os.environ.get("WINDOW_ID", "0"), 16)
 
+captures = deque(maxlen=1)
+
 def get_next_frame(jpg_quality, w, h):
-    image = capture_window(window_id)
+    image = captures[-1]
     resized_image = resize_image(image, w, h)
     jpeg_bytes = image_to_jpeg_bytes(resized_image, quality=jpg_quality)
     return jpeg_bytes
+
+async def capture_task():
+    while True:
+        try:
+            image = capture_window(window_id)
+            captures.append(image)
+        except Exception as e:
+            print(f"Error capturing window: {e}")
+        await asyncio.sleep(1 / FPS)
 
 async def stream_images(websocket):
     async for message in websocket:
