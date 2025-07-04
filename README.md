@@ -3,6 +3,8 @@
 This project is a simple remote desktop streaming application for some M5Stack devices (tested on M5Stack Cardputer and StickC Plus 2).
 It allows you to stream a window from your computer using a WebSocket server.
 
+https://github.com/user-attachments/assets/966fffac-e7f6-4615-a12c-cf69226d2616
+
 > [!WARNING]
 > As I am not a professional MCU/IoT developer, this code may not be the most efficient or optimal solution. It was created as a personal project and may not follow best practices. Use it at your own risk!
 
