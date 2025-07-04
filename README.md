@@ -32,6 +32,7 @@ The rendering on the client side is done using the `M5Canvas.drawJpg` function f
 ### Known Issues
 
 - Due to the current implementation, both Cardputer and StickC Plus 2 devices are limited to a maximum frame rate of 15 FPS. This limitation likely stems from the devices' constrained processing capabilities and/or inefficiencies in the code.
+- Audio streaming is not supported, as the focus of this project was solely on video streaming.
 
 ## Usage
 
